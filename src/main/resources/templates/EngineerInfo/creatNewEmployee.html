@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragment/header"></div>
+
+</head>
+<body>
+<nav th:replace="fragment/navbar"></nav>
+<div>
+
+    <h1 style="text-align: center">사원 정보 입력</h1><br><br><br>
+
+    <div style="margin:0 auto;width: 30% ">
+        <form method="POST" action="/Account/creatNewEmployee" style="text-align: center">
+            <input type="number" name="employeeNum" placeholder="사원번호"><br>
+            <input type="text" name="name" placeholder="이름"><br>
+            <input type="text" name="phoneNum" placeholder="010-****-****"><br>
+            <input type="text" name="centerName" th:value="${centerName}" readonly><br>
+            <input type="submit" value="확인" >
+        </form>
+
+    </div>
+</div>
+</body>
+</html>

@@ -8,6 +8,11 @@ import java.util.List;
 public interface MapService {
     ServiceCenter searchCenterPos(Long centerNum);
 
+    List<ServiceCenter> findAllCenter();
+
+    ServiceCenter searchCenterByName(String centerName);
+
+
     public class Coordinates {
         Double lon; //경도
         Double lat; //위도

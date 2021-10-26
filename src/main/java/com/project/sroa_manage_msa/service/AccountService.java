@@ -1,6 +1,7 @@
 package com.project.sroa_manage_msa.service;
 
 import com.project.sroa_manage_msa.model.EmployeeInfo;
+import com.project.sroa_manage_msa.model.EngineerInfo;
 import com.project.sroa_manage_msa.model.ServiceCenter;
 import com.project.sroa_manage_msa.model.UserInfo;
 
@@ -18,4 +19,8 @@ public interface AccountService {
     void createEnginnerInfo(ServiceCenter center, EmployeeInfo employee, UserInfo user);
 
     boolean checkDuplicateEmployeeNum(Long employeeNum);
+
+    List<EngineerInfo> searchEngineerAtCenter(ServiceCenter center);
+
+    String findEngineerName(Long engineerNum);
 }

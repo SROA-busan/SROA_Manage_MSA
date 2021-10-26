@@ -39,6 +39,11 @@ public class MapServiceImpl implements MapService {
     }
 
     @Override
+    public List<ServiceCenter> findAllCenter() {
+        return serviceCenterRepository.findAll();
+    }
+
+    @Override
     public List<EngineerInfo> searchEngineerAtCenter(Long centerNum) {
         return engineerInfoRepository.findAllByServiceCenter(serviceCenterRepository.findByCenterNum(centerNum));
     }
@@ -46,6 +51,18 @@ public class MapServiceImpl implements MapService {
     @Override
     public ServiceCenter searchCenterPos(Long centerNum) {
         ServiceCenter center = serviceCenterRepository.findByCenterNum(centerNum);
+        return center;
+    }
+
+    @Override
+    public ServiceCenter searchCenterByName(String centerName) {
+        ServiceCenter center= serviceCenterRepository.findByCenterName(centerName);
+        if(center.getLatitude()==null || center.getLongitude()==null){
+            Coordinates coor = findCoordinates(center.getAddress());
+            center.setLatitude(coor.lat);
+            center.setLongitude(coor.lon);
+            serviceCenterRepository.updateCoor(center.getCenterNum(), coor.lat, coor.lon);
+        }
         return center;
     }
 

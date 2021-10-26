@@ -1,5 +1,6 @@
 package com.project.sroa_manage_msa.controller;
 
+import com.project.sroa_manage_msa.dto.CenterView;
 import com.project.sroa_manage_msa.model.EngineerInfo;
 import com.project.sroa_manage_msa.model.ServiceCenter;
 import com.project.sroa_manage_msa.service.MapService;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -20,15 +22,31 @@ public class MapController {
         this.mapService = mapService;
     }
 
-    @GetMapping("/map/{dateTime}/{serviceCenter}")
-    public String map(@PathVariable("dateTime") String dateTime, @PathVariable("serviceCenter") Long centerNum, Model model) {
-        ServiceCenter center = mapService.searchCenterPos(centerNum);
+    @GetMapping("/map/selectCenter")
+    public String selectCenter(Model model){
+        List<ServiceCenter> centers = mapService.findAllCenter();
+        List<CenterView> list= new ArrayList<>();
+        for(ServiceCenter center:centers){
+            Integer cnt= mapService.searchEngineerAtCenter(center.getCenterNum()).size();
+            list.add(new CenterView(center.getCenterName(), cnt));
+        }
+        model.addAttribute("list",list);
+        return "Map/selectCenter";
+    }
+
+    @GetMapping("/map/{centerName}")
+    public String map(@PathVariable("centerName") String centerName, Model model){
+        System.out.println(centerName);
+        ServiceCenter center=mapService.searchCenterByName(centerName);
         model.addAttribute("lat", center.getLatitude());
         model.addAttribute("lon", center.getLongitude());
-        model.addAttribute("dateTime", dateTime);
-        model.addAttribute("centerNum", centerNum);
-        return "map";
+        model.addAttribute("centerName", center.getCenterName());
+        model.addAttribute("centerNum", center.getCenterNum());
+        return "Map/map";
     }
+
+
+
 
     @PostMapping("/map")
     @ResponseBody

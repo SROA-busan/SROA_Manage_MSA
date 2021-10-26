@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <style type="text/css">
+        a:link {
+            color: red;
+            text-decoration: none;
+        }
+
+        a:visited {
+            color: black;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: blue;
+            text-decoration: underline;
+        }
+    </style>
+
+    <meta charset="UTF-8">
+    <div th:replace="fragment/header"></div>
+</head>
+
+<body>
+<nav th:replace="fragment/navbar"></nav>
+<h1 style="text-align: center">센터별 엔지니어 확인</h1><br><br>
+<div style="margin:0 auto;width: 30%;">
+<table class="table" style="text-align: center" >
+    <thead>
+    <tr>
+        <th>센터명</th>
+        <th>엔지니어 수</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="center : ${list}">
+        <td>
+            <a th:href="@{'/info/selectEngineer/' + ${center.centerName}}">
+                <span th:text="${center.centerName}"/>
+            </a>
+        </td>
+        <td th:text="${center.engineerCnt}"></td>
+
+    </tr>
+    </tbody>
+
+
+</table>
+</div>
+</body>
+</html>

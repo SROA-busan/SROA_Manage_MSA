@@ -32,6 +32,16 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
+    public List<EngineerInfo> searchEngineerAtCenter(ServiceCenter center) {
+        return engineerInfoRepository.findAllByServiceCenter(center);
+    }
+
+    @Override
+    public String findEngineerName(Long engineerNum) {
+        return engineerInfoRepository.findEngineerNameByEngineerNum(engineerNum);
+    }
+
+    @Override
     public List<ServiceCenter> searchAllCenter() {
         return serviceCenterRepository.findAll();
     }
