@@ -1,10 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>사원 정보 입력</title>
 </head>
 <body>
-
+    <div>
+        <h1>사원 정보 입력</h1>
+        <form method="POST" action="/Account/creatNewEmployee">
+            <input type="number" name="employeeNum" placeholder="사원번호"><br>
+            <input type="text" name="name" placeholder="이름"><br>
+            <input type="text" name="phoneNum" placeholder="010-****-****"><br>
+            <div>
+                <select id="keyword" name="centerName">
+                    <option value='' selected>-- 선택 --</option>
+                    <option th:each="keyword : ${list}"
+                            th:text="${keyword}" th:value="${keyword}"></option>
+                </select>
+            </div>
+            <input type="submit" value="저장">
+        </form>
+    </div>
 </body>
 </html>
