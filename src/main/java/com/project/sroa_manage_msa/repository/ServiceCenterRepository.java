@@ -12,11 +12,4 @@ public interface ServiceCenterRepository extends JpaRepository<ServiceCenter, Lo
     ServiceCenter findByCenterName(String centerName);
 
     ServiceCenter findByCenterNum(Long num);
-
-    List<ServiceCenter> findByAddressContaining(String rootAddress);
-
-    @Transactional
-    @Modifying
-    @Query("UPDATE ServiceCenter s SET s.latitude=?1, s.longitude=?2 WHERE s.centerNum=?3")
-    void updatePos(Double lat, Double lon, Long centerNum);
 }
