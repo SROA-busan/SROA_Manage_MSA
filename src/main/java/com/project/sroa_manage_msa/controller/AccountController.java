@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,7 +74,7 @@ public class AccountController {
     }
 
     @PostMapping("/Account/creatNewEmployee")
-    public String storeEngineer(@Valid EngineerForm engineerForm ) throws UnsupportedEncodingException {
+    public String storeEngineer(@Valid EngineerForm engineerForm) throws UnsupportedEncodingException {
         ServiceCenter center = accountService.searchCenter(engineerForm.getCenterName());
         if (accountService.checkDuplicateEmployeeNum(engineerForm.getEmployeeNum())) {
             System.out.println(engineerForm.getEmployeeNum() + "는 이미 등록된 사원 번호입니다.");
