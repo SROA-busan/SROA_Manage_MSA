@@ -3,6 +3,7 @@ package com.project.sroa_manage_msa.service;
 import com.project.sroa_manage_msa.model.EngineerInfo;
 import com.project.sroa_manage_msa.model.Schedule;
 import com.project.sroa_manage_msa.model.ServiceCenter;
+import com.project.sroa_manage_msa.opt.Coordinates;
 import com.project.sroa_manage_msa.repository.EngineerInfoRepository;
 import com.project.sroa_manage_msa.repository.ScheduleRepository;
 import com.project.sroa_manage_msa.repository.ServiceCenterRepository;
@@ -59,9 +60,9 @@ public class MapServiceImpl implements MapService {
         ServiceCenter center= serviceCenterRepository.findByCenterName(centerName);
         if(center.getLatitude()==null || center.getLongitude()==null){
             Coordinates coor = findCoordinates(center.getAddress());
-            center.setLatitude(coor.lat);
-            center.setLongitude(coor.lon);
-            serviceCenterRepository.updateCoor(center.getCenterNum(), coor.lat, coor.lon);
+            center.setLatitude(coor.getLat());
+            center.setLongitude(coor.getLon());
+            serviceCenterRepository.updateCoor(center.getCenterNum(), coor.getLat(), coor.getLon());
         }
         return center;
     }
@@ -83,8 +84,8 @@ public class MapServiceImpl implements MapService {
             for (Schedule schedule : schedules) {
                 map = new HashMap<>();
                 Coordinates coordinates = findCoordinates(schedule.getAddress());
-                map.put("y", coordinates.lat);
-                map.put("x", coordinates.lon);
+                map.put("y", coordinates.getLat());
+                map.put("x", coordinates.getLon());
                 map.put("text", engineer.getEngineerNum().toString() + "번 엔지니어 " + schedule.getStartDate().toString().split("T")[1]);
                 resList.add(map);
             }
@@ -92,8 +93,8 @@ public class MapServiceImpl implements MapService {
         }
         return resList;
     }
-
-    private Coordinates findCoordinates(String customerAddress) {
+    @Override
+    public Coordinates findCoordinates(String customerAddress) {
         String apiURL = "http://api.vworld.kr/req/address";
         JsonParser jsonParser = JsonParserFactory.getJsonParser();
         try {
@@ -137,8 +138,8 @@ public class MapServiceImpl implements MapService {
             br.close();
             con.disconnect();
             Map<String, Object> map = jsonParser.parseMap(response.toString());
-            Map<String, Object> point = (Map<String, Object>) ((Map<String, Object>) ((Map<String, Object>) map.get("response")).get("result")).get("point");
 
+            Map<String, Object> point = (Map<String, Object>) ((Map<String, Object>) ((Map<String, Object>) map.get("response")).get("result")).get("point");
             return new Coordinates(Double.parseDouble((String) point.get("x")), Double.parseDouble((String) point.get("y")));
         } catch (IOException e) {
             e.printStackTrace();

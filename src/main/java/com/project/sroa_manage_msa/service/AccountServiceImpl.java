@@ -4,6 +4,7 @@ import com.project.sroa_manage_msa.model.EmployeeInfo;
 import com.project.sroa_manage_msa.model.EngineerInfo;
 import com.project.sroa_manage_msa.model.ServiceCenter;
 import com.project.sroa_manage_msa.model.UserInfo;
+import com.project.sroa_manage_msa.opt.Coordinates;
 import com.project.sroa_manage_msa.repository.EmployeeInfoRepository;
 import com.project.sroa_manage_msa.repository.EngineerInfoRepository;
 import com.project.sroa_manage_msa.repository.ServiceCenterRepository;
@@ -88,5 +89,16 @@ public class AccountServiceImpl implements AccountService{
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void storeCenter(String centerName, String address, Coordinates coor) {
+        ServiceCenter serviceCenter = ServiceCenter.builder()
+                .centerName(centerName)
+                .address(address)
+                .latitude(coor.getLat())
+                .longitude(coor.getLon())
+                .build();
+        serviceCenterRepository.save(serviceCenter);
     }
 }

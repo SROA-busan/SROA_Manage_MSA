@@ -1,5 +1,6 @@
 package com.project.sroa_manage_msa.controller;
 
+import com.project.sroa_manage_msa.dto.CenterForm;
 import com.project.sroa_manage_msa.dto.CenterView;
 import com.project.sroa_manage_msa.dto.EngineerForm;
 import com.project.sroa_manage_msa.dto.EngineerView;
@@ -7,6 +8,7 @@ import com.project.sroa_manage_msa.model.EmployeeInfo;
 import com.project.sroa_manage_msa.model.EngineerInfo;
 import com.project.sroa_manage_msa.model.ServiceCenter;
 import com.project.sroa_manage_msa.model.UserInfo;
+import com.project.sroa_manage_msa.opt.Coordinates;
 import com.project.sroa_manage_msa.service.AccountService;
 import com.project.sroa_manage_msa.service.MapService;
 import lombok.RequiredArgsConstructor;
@@ -60,7 +62,7 @@ public class AccountController {
             list.add(new CenterView(center.getCenterName(), cnt));
         }
         model.addAttribute("list", list);
-        return "EngineerInfo/selectCenterForInfo";
+        return "ServiceCenter/selectCenterForInfo";
     }
 
 
@@ -87,6 +89,21 @@ public class AccountController {
         accountService.createEnginnerInfo(center, employee, user);
 
         return "redirect:/info/selectCenter";
+    }
+
+    @GetMapping("/Account/creatNewCenter")
+    public String createNewCenter(){
+        return "/ServiceCenter/createNewCenter";
+    }
+
+    @PostMapping("Account/createNewCenter")
+    public String storeCenter(@Valid CenterForm centerForm){
+        Coordinates coor = mapService.findCoordinates(centerForm.getAddress());
+        if(coor==null){
+            return "redirect:/Account/creatNewCenter";
+        }
+        accountService.storeCenter(centerForm.getCenterName(), centerForm.getAddress(), coor);
+        return "redirect:/";
     }
 
 }

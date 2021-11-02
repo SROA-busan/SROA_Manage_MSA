@@ -2,6 +2,7 @@ package com.project.sroa_manage_msa.service;
 
 import com.project.sroa_manage_msa.model.EngineerInfo;
 import com.project.sroa_manage_msa.model.ServiceCenter;
+import com.project.sroa_manage_msa.opt.Coordinates;
 
 import java.util.List;
 
@@ -13,15 +14,7 @@ public interface MapService {
     ServiceCenter searchCenterByName(String centerName);
 
 
-    public class Coordinates {
-        Double lon; //경도
-        Double lat; //위도
-
-        Coordinates(Double x, Double y) {
-            this.lon = x;
-            this.lat = y;
-        }
-    }
+    Coordinates findCoordinates(String customerAddress);
 
     List<EngineerInfo> searchEngineerAtCenter(Long centerNum);
 

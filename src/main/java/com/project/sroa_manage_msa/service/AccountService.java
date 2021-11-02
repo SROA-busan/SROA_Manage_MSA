@@ -4,6 +4,7 @@ import com.project.sroa_manage_msa.model.EmployeeInfo;
 import com.project.sroa_manage_msa.model.EngineerInfo;
 import com.project.sroa_manage_msa.model.ServiceCenter;
 import com.project.sroa_manage_msa.model.UserInfo;
+import com.project.sroa_manage_msa.opt.Coordinates;
 
 import java.util.List;
 
@@ -23,4 +24,6 @@ public interface AccountService {
     List<EngineerInfo> searchEngineerAtCenter(ServiceCenter center);
 
     String findEngineerName(Long engineerNum);
+
+    void storeCenter(String centerName, String address, Coordinates coor);
 }

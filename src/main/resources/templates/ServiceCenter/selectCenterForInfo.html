@@ -27,7 +27,12 @@
 <body>
 <nav th:replace="fragment/navbar"></nav>
 <h1 style="text-align: center">센터별 엔지니어 확인</h1><br><br>
+
+<br>
 <div style="margin:0 auto;width: 30%;">
+    <a th:href="@{'/Account/creatNewCenter'}">        <!-- " + ${engineer.engineerName}}">-->
+        <span>서비스 센터 추가</span>
+    </a>
 <table class="table" style="text-align: center" >
     <thead>
     <tr>
