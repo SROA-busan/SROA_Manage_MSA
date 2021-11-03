@@ -13,7 +13,6 @@ public interface MapService {
 
     ServiceCenter searchCenterByName(String centerName);
 
-
     Coordinates findCoordinates(String customerAddress);
 
     List<EngineerInfo> searchEngineerAtCenter(Long centerNum);

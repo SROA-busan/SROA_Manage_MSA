@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class AccountServiceImpl implements AccountService{
+public class AccountServiceImpl implements AccountService {
     ServiceCenterRepository serviceCenterRepository;
     EmployeeInfoRepository employeeInfoRepository;
     UserInfoRepository userInfoRepository;
@@ -25,22 +25,13 @@ public class AccountServiceImpl implements AccountService{
     public AccountServiceImpl(ServiceCenterRepository serviceCenterRepository,
                               EmployeeInfoRepository employeeInfoRepository,
                               UserInfoRepository userInfoRepository,
-                              EngineerInfoRepository engineerInfoRepository){
-        this.serviceCenterRepository=serviceCenterRepository;
-        this.employeeInfoRepository=employeeInfoRepository;
-        this.userInfoRepository=userInfoRepository;
-        this.engineerInfoRepository=engineerInfoRepository;
+                              EngineerInfoRepository engineerInfoRepository) {
+        this.serviceCenterRepository = serviceCenterRepository;
+        this.employeeInfoRepository = employeeInfoRepository;
+        this.userInfoRepository = userInfoRepository;
+        this.engineerInfoRepository = engineerInfoRepository;
     }
 
-    @Override
-    public List<EngineerInfo> searchEngineerAtCenter(ServiceCenter center) {
-        return engineerInfoRepository.findAllByServiceCenter(center);
-    }
-
-    @Override
-    public String findEngineerName(Long engineerNum) {
-        return engineerInfoRepository.findEngineerNameByEngineerNum(engineerNum);
-    }
 
     @Override
     public List<ServiceCenter> searchAllCenter() {
@@ -54,7 +45,7 @@ public class AccountServiceImpl implements AccountService{
 
     @Override
     public EmployeeInfo createEmployee(Long employeeNum, String name) {
-        EmployeeInfo employeeInfo= EmployeeInfo.builder()
+        EmployeeInfo employeeInfo = EmployeeInfo.builder()
                 .empNum(employeeNum)
                 .name(name)
                 .build();
@@ -63,19 +54,20 @@ public class AccountServiceImpl implements AccountService{
 
     @Override
     public UserInfo createUserInfo(Long employeeNum, String name, String phoneNum) {
-        UserInfo userInfo= UserInfo.builder()
+        UserInfo userInfo = UserInfo.builder()
                 .address(null)
                 .name(name)
                 .phoneNum(phoneNum)
                 .id(employeeNum.toString())
                 .pw("00000000")
+                .code(1)
                 .build();
         return userInfoRepository.save(userInfo);
     }
 
     @Override
     public void createEnginnerInfo(ServiceCenter center, EmployeeInfo employee, UserInfo user) {
-        EngineerInfo engineerInfo=EngineerInfo.builder()
+        EngineerInfo engineerInfo = EngineerInfo.builder()
                 .employeeInfo(employee)
                 .serviceCenter(center)
                 .userInfo(user)

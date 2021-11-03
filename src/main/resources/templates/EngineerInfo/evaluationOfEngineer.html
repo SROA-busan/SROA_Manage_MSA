@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-
-
+<html lang="en">
 <head>
     <style type="text/css">
         a:link {
@@ -21,30 +19,31 @@
     </style>
     <meta charset="UTF-8">
     <div th:replace="fragment/header"></div>
-
-    <meta charset="UTF-8">
-
+    <title>평가 조회</title>
 </head>
-
 <body>
 <nav th:replace="fragment/navbar"></nav>
-<h1 style="text-align: center">센터별 일정 확인</h1><br><br>
-<div style="margin:0 auto;width: 30% ">
+<h1 th:text="${engineerNum}+'번 엔지니어의 평가 조회'" style="text-align: center"></h1><br><br>
+<div style="margin:0 auto;width: 50% ">
+
+
     <table class="table" style="text-align: center">
         <thead>
         <tr>
-            <th>센터명</th>
-            <th>엔지니어 수</th>
+            <th>번호</th>
+            <th>작성일</th>
+            <th>내용</th>
+            <th>평점</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="center : ${list}">
-            <td>
-                <a th:href="@{'/map/' + ${center.centerName}}">
-                    <span th:text="${center.centerName}"/>
-                </a>
-            </td>
-            <td th:text="${center.engineerCnt}"></td>
+        <tr th:each="eval : ${list}">
+            <td th:text="${eval.evaluationNum}"></td>
+            <td th:text="${eval.writeDate}"></td>
+            <td th:text="${eval.content}"></td>
+            <td th:text="${eval.score}"></td>
+
+
 
         </tr>
         </tbody>
@@ -52,5 +51,8 @@
 
     </table>
 </div>
+
+
+
 </body>
 </html>

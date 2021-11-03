@@ -57,8 +57,8 @@ public class MapServiceImpl implements MapService {
 
     @Override
     public ServiceCenter searchCenterByName(String centerName) {
-        ServiceCenter center= serviceCenterRepository.findByCenterName(centerName);
-        if(center.getLatitude()==null || center.getLongitude()==null){
+        ServiceCenter center = serviceCenterRepository.findByCenterName(centerName);
+        if (center.getLatitude() == null || center.getLongitude() == null) {
             Coordinates coor = findCoordinates(center.getAddress());
             center.setLatitude(coor.getLat());
             center.setLongitude(coor.getLon());
@@ -93,6 +93,7 @@ public class MapServiceImpl implements MapService {
         }
         return resList;
     }
+
     @Override
     public Coordinates findCoordinates(String customerAddress) {
         String apiURL = "http://api.vworld.kr/req/address";

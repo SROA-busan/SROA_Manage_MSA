@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-
-
+<html lang="en">
 <head>
     <style type="text/css">
         a:link {
@@ -21,30 +19,33 @@
     </style>
     <meta charset="UTF-8">
     <div th:replace="fragment/header"></div>
-
-    <meta charset="UTF-8">
-
+    <title>고객 현황</title>
 </head>
-
 <body>
 <nav th:replace="fragment/navbar"></nav>
-<h1 style="text-align: center">센터별 일정 확인</h1><br><br>
-<div style="margin:0 auto;width: 30% ">
+<h1 style="text-align: center"> 고객 정보</h1><br><br>
+<div style="margin:0 auto;width: 50% ">
+
     <table class="table" style="text-align: center">
         <thead>
         <tr>
-            <th>센터명</th>
-            <th>엔지니어 수</th>
+            <th>고객 번호</th>
+            <th>이름</th>
+            <th>ID</th>
+            <th>PW</th>
+            <th>주소</th>
+            <th>연락처</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="center : ${list}">
-            <td>
-                <a th:href="@{'/map/' + ${center.centerName}}">
-                    <span th:text="${center.centerName}"/>
-                </a>
-            </td>
-            <td th:text="${center.engineerCnt}"></td>
+        <tr th:each="user : ${list}">
+            <td th:text="${user.userNum}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.pw}"></td>
+            <td th:text="${user.address}"></td>
+            <td th:text="${user.address}"></td>
+
 
         </tr>
         </tbody>

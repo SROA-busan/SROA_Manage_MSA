@@ -23,7 +23,7 @@
 <body>
 <nav th:replace="fragment/navbar"></nav>
 <h1 th:text="${centerName}+'의 사원정보'" style="text-align: center"></h1><br><br>
-<div style="margin:0 auto;width: 30% ">
+<div style="margin:0 auto;width: 50% ">
     <a th:href="@{'/Account/creatNewEmployee/' + ${centerName}}">        <!-- " + ${engineer.engineerName}}">-->
         <span>사원추가</span>
     </a>
@@ -31,6 +31,9 @@
     <table class="table" style="text-align: center">
         <thead>
         <tr>
+            <th>사원번호</th>
+            <th>비밀번호</th>
+            <th>엔지니어 번호</th>
             <th>사원명</th>
             <th>월간 작업량</th>
             <th>평점</th>
@@ -38,8 +41,11 @@
         </thead>
         <tbody>
         <tr th:each="engineer : ${list}">
+            <td th:text="${engineer.empNum}"></td>
+            <td th:text="${engineer.pw}"></td>
+            <td th:text="${engineer.engineerNum}"></td>
             <td>
-                <a th:href="@{'/info/' + ${engineer.engineerName}}">
+                <a th:href="@{'/info/Evaluation/' + ${engineer.engineerNum}}">
                     <span th:text="${engineer.engineerName}"/>
                 </a>
             </td>

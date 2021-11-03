@@ -17,4 +17,8 @@ public interface EngineerInfoRepository extends JpaRepository<EngineerInfo, Long
 
     @Query("SELECT e.userInfo.name FROM EngineerInfo e WHERE e.engineerNum=?1 ")
     String findEngineerNameByEngineerNum(Long engineerNum);
+
+    @Query(nativeQuery = true, value = "SELECT e.* FROM engineer_info e WHERE e.center_num=?1 ")
+    List<EngineerInfo> findAllByCenterNum(Long centerNum);
+
 }

@@ -23,29 +23,27 @@ public class MapController {
     }
 
     @GetMapping("/map/selectCenter")
-    public String selectCenter(Model model){
+    public String selectCenter(Model model) {
         List<ServiceCenter> centers = mapService.findAllCenter();
-        List<CenterView> list= new ArrayList<>();
-        for(ServiceCenter center:centers){
-            Integer cnt= mapService.searchEngineerAtCenter(center.getCenterNum()).size();
+        List<CenterView> list = new ArrayList<>();
+        for (ServiceCenter center : centers) {
+            Integer cnt = mapService.searchEngineerAtCenter(center.getCenterNum()).size();
             list.add(new CenterView(center.getCenterName(), cnt));
         }
-        model.addAttribute("list",list);
+        model.addAttribute("list", list);
         return "Map/selectCenter";
     }
 
     @GetMapping("/map/{centerName}")
-    public String map(@PathVariable("centerName") String centerName, Model model){
+    public String map(@PathVariable("centerName") String centerName, Model model) {
         System.out.println(centerName);
-        ServiceCenter center=mapService.searchCenterByName(centerName);
+        ServiceCenter center = mapService.searchCenterByName(centerName);
         model.addAttribute("lat", center.getLatitude());
         model.addAttribute("lon", center.getLongitude());
         model.addAttribute("centerName", center.getCenterName());
         model.addAttribute("centerNum", center.getCenterNum());
         return "Map/map";
     }
-
-
 
 
     @PostMapping("/map")

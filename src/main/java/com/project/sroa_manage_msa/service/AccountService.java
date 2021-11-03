@@ -1,7 +1,6 @@
 package com.project.sroa_manage_msa.service;
 
 import com.project.sroa_manage_msa.model.EmployeeInfo;
-import com.project.sroa_manage_msa.model.EngineerInfo;
 import com.project.sroa_manage_msa.model.ServiceCenter;
 import com.project.sroa_manage_msa.model.UserInfo;
 import com.project.sroa_manage_msa.opt.Coordinates;
@@ -21,9 +20,6 @@ public interface AccountService {
 
     boolean checkDuplicateEmployeeNum(Long employeeNum);
 
-    List<EngineerInfo> searchEngineerAtCenter(ServiceCenter center);
-
-    String findEngineerName(Long engineerNum);
 
     void storeCenter(String centerName, String address, Coordinates coor);
 }

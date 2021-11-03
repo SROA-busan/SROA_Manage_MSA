@@ -50,7 +50,12 @@
         var lon = "[[${lon}]]";
         var centerNum = "[[${centerNum}]]";
         var positions = [];
-
+        var container = document.getElementById('map');
+        var options = {
+            // center: new kakao.maps.LatLng(35.147796229, 129.110061304),
+            center: new kakao.maps.LatLng(lat, lon),
+            level: 6
+        };
 
         $(function () {
             $("#datePicker").datepicker({
@@ -112,7 +117,8 @@
 
 <div style="margin:0 auto;width:50%">
     <h3 th:text="${centerName}+' 일정'" style="text-align: center"></h3>
-</div><br><br><br>
+</div>
+<br><br><br>
 
 <div style="margin:0 auto;width:800px">
     <input type="text" id="datePicker" style="text-align: center">

@@ -1,6 +1,7 @@
 package com.project.sroa_manage_msa.model;
 
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 
 @Entity
 @NoArgsConstructor
+@Data
 public class EmployeeInfo {
     @Id
     public Long empNum;

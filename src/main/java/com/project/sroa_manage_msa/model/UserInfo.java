@@ -25,12 +25,13 @@ public class UserInfo {
     private Integer code;
 
     @Builder
-    public UserInfo(String id, String pw, String name, String address, String phoneNum) {
+    public UserInfo(String id, String pw, String name, String address, String phoneNum, Integer code) {
         this.id = id;
         this.pw = pw;
         this.name = name;
         this.address = address;
         this.phoneNum = phoneNum;
+        this.code=code;
     }
 
 
