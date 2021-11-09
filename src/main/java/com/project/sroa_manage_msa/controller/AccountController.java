@@ -1,11 +1,8 @@
 package com.project.sroa_manage_msa.controller;
 
 import com.project.sroa_manage_msa.dto.CenterForm;
-import com.project.sroa_manage_msa.dto.CenterView;
 import com.project.sroa_manage_msa.dto.EngineerForm;
-import com.project.sroa_manage_msa.dto.EngineerView;
 import com.project.sroa_manage_msa.model.EmployeeInfo;
-import com.project.sroa_manage_msa.model.EngineerInfo;
 import com.project.sroa_manage_msa.model.ServiceCenter;
 import com.project.sroa_manage_msa.model.UserInfo;
 import com.project.sroa_manage_msa.opt.Coordinates;
@@ -21,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -36,33 +32,6 @@ public class AccountController {
                              MapService mapService) {
         this.accountService = accountService;
         this.mapService = mapService;
-    }
-
-    @GetMapping("/info/selectEngineer/{centerName}")
-    public String selectEngineer(@PathVariable("centerName") String centerName, Model model) {
-        model.addAttribute("centerName", centerName);
-        System.out.println(centerName);
-        ServiceCenter center = mapService.searchCenterByName(centerName);
-        List<EngineerInfo> engineers = accountService.searchEngineerAtCenter(center);
-        List<EngineerView> list = new ArrayList<>();
-        for (EngineerInfo engineer : engineers) {
-            String name = accountService.findEngineerName(engineer.getEngineerNum());
-            list.add(new EngineerView(name, engineer.getAvgScore(), engineer.getAmountOfWork()));
-        }
-        model.addAttribute("list", list);
-        return "EngineerInfo/engineersAtCenter";
-    }
-
-    @GetMapping("/info/selectCenter")
-    public String selectCenterInfo(Model model) {
-        List<ServiceCenter> centers = mapService.findAllCenter();
-        List<CenterView> list = new ArrayList<>();
-        for (ServiceCenter center : centers) {
-            Integer cnt = mapService.searchEngineerAtCenter(center.getCenterNum()).size();
-            list.add(new CenterView(center.getCenterName(), cnt));
-        }
-        model.addAttribute("list", list);
-        return "ServiceCenter/selectCenterForInfo";
     }
 
 
@@ -91,19 +60,21 @@ public class AccountController {
         return "redirect:/info/selectCenter";
     }
 
-    @GetMapping("/Account/creatNewCenter")
-    public String createNewCenter(){
+    @GetMapping("/info/creatNewCenter")
+    public String createNewCenter() {
         return "/ServiceCenter/createNewCenter";
     }
 
-    @PostMapping("Account/createNewCenter")
-    public String storeCenter(@Valid CenterForm centerForm){
+
+    @PostMapping("info/createNewCenter")
+    public String storeCenter(@Valid CenterForm centerForm) {
         Coordinates coor = mapService.findCoordinates(centerForm.getAddress());
-        if(coor==null){
-            return "redirect:/Account/creatNewCenter";
+        if (coor == null) {
+            return "redirect:/info/creatNewCenter";
         }
         accountService.storeCenter(centerForm.getCenterName(), centerForm.getAddress(), coor);
         return "redirect:/";
     }
+
 
 }
