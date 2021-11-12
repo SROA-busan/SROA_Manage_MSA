@@ -62,11 +62,11 @@ public class AccountController {
 
     @GetMapping("/info/creatNewCenter")
     public String createNewCenter() {
-        return "/ServiceCenter/createNewCenter";
+        return "ServiceCenter/createNewCenter";
     }
 
 
-    @PostMapping("info/createNewCenter")
+    @PostMapping("/info/createNewCenter")
     public String storeCenter(@Valid CenterForm centerForm) {
         Coordinates coor = mapService.findCoordinates(centerForm.getAddress());
         if (coor == null) {

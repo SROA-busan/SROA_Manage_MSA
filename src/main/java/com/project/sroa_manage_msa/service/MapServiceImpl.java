@@ -76,20 +76,30 @@ public class MapServiceImpl implements MapService {
         for (EngineerInfo engineer : list) {
 
             System.out.println(engineer.getEngineerNum() + "번 엔지니어");
-            List<Schedule> schedules = scheduleRepository.findAllByEngineerInfoAndDateTime(engineer.getEngineerNum(), dateTime);
+            List<Schedule> schedules = scheduleRepository.findAllByEngineerInfoAndStartDateTime(engineer.getEngineerNum(), dateTime);
+            System.out.println("당일 일정 수 : " + schedules.size());
+            if (schedules.size() != 0) {
+                for (Schedule schedule : schedules) {
+                    map = new HashMap<>();
+                    Coordinates coordinates = findCoordinates(schedule.getAddress());
+                    map.put("y", coordinates.getLat());
+                    map.put("x", coordinates.getLon());
+                    map.put("text", engineer.getEngineerNum().toString() + "번 엔지니어 " + schedule.getStartDate().toString().split("T")[1]);
+                    resList.add(map);
+                }
+            }
+
+            schedules = scheduleRepository.findAllByEngineerInfoAndEndDateTime(engineer.getEngineerNum(), dateTime);
             System.out.println("당일 일정 수 : " + schedules.size());
             if (schedules.size() == 0) continue;
-
-
             for (Schedule schedule : schedules) {
                 map = new HashMap<>();
                 Coordinates coordinates = findCoordinates(schedule.getAddress());
                 map.put("y", coordinates.getLat());
                 map.put("x", coordinates.getLon());
-                map.put("text", engineer.getEngineerNum().toString() + "번 엔지니어 " + schedule.getStartDate().toString().split("T")[1]);
+                map.put("text", engineer.getEngineerNum().toString() + "번 엔지니어 " + schedule.getEndDate().toString().split("T")[1]);
                 resList.add(map);
             }
-
         }
         return resList;
     }
